@@ -4,15 +4,10 @@ public class Stack {
     public static void main(String[] args) throws Exception {
         Stack myStack = new Stack(4);
         myStack.push(1);
-        System.out.println(myStack.getTop());
         myStack.push(10);
         myStack.push(20);
-        myStack.push(20);
-        myStack.push(20);
-        myStack.push(20);
-        myStack.push(20);
-        myStack.pop();
-        System.out.println(myStack.getTop());
+        myStack.push(30);
+        System.out.println(myStack.top());
     }
 
     private final int size;
@@ -25,12 +20,8 @@ public class Stack {
         top = -1;
     }
 
-    private boolean isEmpty() {
-        return top == -1;
-    }
-
     public void push(int el) throws Exception {
-        if(top+1 == size) throw new Exception("Stack Overflow");
+        if(isFull()) throw new Exception("Stack Overflow");
         top++;
         elements[top] = el;
     }
@@ -40,9 +31,17 @@ public class Stack {
         top--;
     }
 
-    public int getTop() throws Exception {
+    public int top() throws Exception {
         if(isEmpty()) throw new Exception("Stack is empty");
 
         return elements[top];
+    }
+
+    private boolean isEmpty() {
+        return top == -1;
+    }
+
+    private boolean isFull() {
+        return top+1 == size;
     }
 }
