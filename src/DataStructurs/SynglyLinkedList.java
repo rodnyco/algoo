@@ -8,6 +8,7 @@ public class SynglyLinkedList {
         list.insert(3);
         list.insert(4);
         list.delete(2);
+        list.insertByPosition(20, 2);
         System.out.println(list.toString());
     }
 
@@ -20,12 +21,25 @@ public class SynglyLinkedList {
     }
 
     public void insert(int value) {
+        insertByPosition(value,0);
+    }
+
+    public void insertByPosition(int value, int position) {
         if(isEmpty()) {
             head = new Node(value);
             size++;
             return;
+        } else if(position == 0) {
+            head = new Node(value, head);
+            size++;
+            return;
         }
-        head = new Node(value, head);
+        Node currentNode = head;
+        for(int i = 0; i < position - 1; ++i) {
+            currentNode = currentNode.next;
+        }
+        Node newNode = new Node(value, currentNode.next);
+        currentNode.next = newNode;
         size++;
     }
 
